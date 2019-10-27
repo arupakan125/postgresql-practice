@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>PostgreSQL</title>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<header>
+		<p>PostgreSQLがいい感じに勉強できるアレ</p>
+	</header>
+	<div class="container">
+		<div class="left-box">
+			<h1>PostgreSQLをはじめよう</h1>
+			<p>右側のコンソールにSQL文を書いて実行してみよう</p>
+			<p>SELECT * FROM food;</p>
+			<h1>その他</h1>
+			<p><b>
+					<font color="red">日本語入力非対応</font>
+				</b></p>
+			<p>macOSなら入力したい日本語をコピーしてcmd+vで貼り付けられるけどWindowsは知らん</p>
+			<p>ページを更新すると真っ新な環境が立ち上がるから、データベースを壊したり、困ったりしたらリロードだ</p>
+			<p>コンソールを大画面で開きたかったら<a href="https://postgresql.arupaka.net/container/" target=”_blank>ここをクリック</a>しよう</p>
+			<h1>データベースについて</h1>
+			<p>この環境は初期データの投入として、以下のSQL文が実行されてるよ</p>
+			<p>よくわかんなかったらスルーしてOK</p>
+			<pre>
+CREATE TABLE customer (
+    customer_id integer,
+    customer_name text
+);
+
+CREATE TABLE orders (
+    order_id integer,
+    order_date timestamp without time zone,
+    customer_id integer,
+    prod_id integer,
+    qty integer
+);
+
+CREATE TABLE prod (
+    prod_id integer,
+    prod_name text,
+    price integer
+);
+
+INSERT INTO customer(customer_id,customer_name) VALUES (1,'佐藤商事');
+INSERT INTO customer(customer_id,customer_name) VALUES (2,'鈴木物産');
+INSERT INTO customer(customer_id,customer_name) VALUES (3,'高橋商店');
+INSERT INTO prod(prod_id,prod_name,price) VALUES (1,'みかん',50);
+INSERT INTO prod(prod_id,prod_name,price) VALUES (2,'りんご',70);
+INSERT INTO prod(prod_id,prod_name,price) VALUES (3,'メロン',100);
+INSERT INTO orders(order_id,order_date,customer_id,prod_id,qty) VALUES (1,now(),1,1,10);
+INSERT INTO orders(order_id,order_date,customer_id,prod_id,qty) VALUES (2,now(),2,2,5);
+INSERT INTO orders(order_id,order_date,customer_id,prod_id,qty) VALUES (3,now(),3,3,8);
+INSERT INTO orders(order_id,order_date,customer_id,prod_id,qty) VALUES (4,now(),2,1,3);
+INSERT INTO orders(order_id,order_date,customer_id,prod_id,qty) VALUES (5,now(),3,2,4);
+
+CREATE TABLE food (
+    food_cd       CHAR(6)     NOT NULL
+  , food_name     VARCHAR(40) NOT NULL
+  , supplier_cd   CHAR(6)     NOT NULL
+  , supplier_cost INT         DEFAULT 0 NOT NULL
+  , supplier_unit VARCHAR(10) NOT NULL
+  , convert_cost  INT         DEFAULT 1 NOT NULL
+  , recipe_unit   VARCHAR(10) NOT NULL
+  , PRIMARY KEY (food_cd)
+);
+
+insert into food values ('201101','新潟こしひかり','301103',350,'Kg',1000,'g');
+insert into food values('201102','あきたこまち','301103',330,'Kg',1000,'g');
+insert into food values('201103','カリフォルニア米','301103',160,'Kg',1000,'g');
+insert into food values('201104','スパゲティスピガドロ','301201',1700,'ケース',200,'g');
+insert into food values('201105','３斤棒','301102',190,'本',36,'枚');
+insert into food values('201106','８枚スライス','301102',190,'本',8,'枚');
+insert into food values('201107','バターロール','301102',100,'袋',12,'個');
+insert into food values('201108','冷凍イギリスパン','301102',1120,'ケース',120,'個');
+insert into food values('201109','博多の塩','301201',200,'本',500,'g');
+insert into food values('201110','濃口しょうゆ','301200',1680,'ケース',12000,'cc');
+insert into food values('201111','ウスターソース','301200',1680,'ケース',12000,'cc');
+insert into food values('201112','中濃ソース','301200',1680,'ケース',12000,'cc');
+insert into food values('201113','冷凍ミートソース','301107',2250,'ケース',60,'袋');
+insert into food values('201114','サラダ油','301107',1200,'ケース',12000,'cc');
+insert into food values('201115','ゴマ油','301107',1400,'ケース',1200,'cc');
+insert into food values('201116','ラード','301106',900,'ケース',12000,'g');
+insert into food values('201117','パルメザン','301106',1990,'箱',1200,'g');
+insert into food values('201118','エキストラバージンオイル','301106',2280,'箱',1200,'cc');
+insert into food values('201119','七味唐辛子','301103',280,'袋',200,'本');
+insert into food values('201120','レタス','301103',1480,'ケース',6000,'g');
+insert into food values('201121','刻みキャベツ','301103',1380,'ケース',12000,'g');
+insert into food values('201122','ブロッコリー','301103',590,'袋',1000,'g');
+insert into food values('201123','アスパラガス','301103',160,'缶',30,'本');
+insert into food values('201124','冷凍ほうれん草','301103',1500,'ケース',6000,'g');
+insert into food values('201125','味付キャロット','301103',1200,'ケース',6000,'g');
+insert into food values('201126','いんげん','301103',800,'袋',200,'本');
+insert into food values('201127','オリーブオイル','301106',1350,'箱',2400,'cc');
+insert into food values('201128','クリアアップル100','301201',2350,'ケース',12000,'cc');
+insert into food values('201129','オレンジ100','301201',2250,'ケース',12000,'cc');
+insert into food values('201130','ブレンドコーヒー豆粗挽き','301105',3400,'ケース',48000,'cc');
+insert into food values('201131','しめじ','301103',550,'袋',1000,'g');
+insert into food values('201132','大葉','301103',350,'袋',120,'枚');
+insert into food values('201133','タバスコソース','301106',1280,'箱',600,'g');
+insert into food values('201134','ホワイトペッパー','301106',900,'缶',1000,'g');
+insert into food values('201135','ブラックペッパー','301106',1200,'袋',500,'g');
+insert into food values('201136','レッドペッパー','301106',300,'本',50,'g');
+insert into food values('201137','牛肉サーロイン','301108',420,'Kg',1000,'g');
+insert into food values('201138','和牛サーロイン','301108',860,'Kg',1000,'g');
+insert into food values('201139','和牛ヒレ肉','301108',1060,'Kg',1000,'g');
+insert into food values('201140','牛ヒレ肉','301108',670,'Kg',1000,'g');
+insert into food values('201141','豚ロース','301108',350,'Kg',1000,'g');
+insert into food values('201142','フレッシュバジル','301103',980,'袋',200,'g');
+insert into food values('201143','パセリ','301103',380,'袋',200,'g');
+insert into food values('201144','アイスコーヒー豆粗挽き','301105',4500,'ケース',48000,'cc');
+insert into food values('201145','牛ロース肉','301108',470,'Kg',1000,'g');
+insert into food values('201146','トマトケチャップ','301200',1100,'箱',2400,'g');
+insert into food values('201147','ナチュラルポテト','301103',1200,'ケース',3000,'g');
+insert into food values('201148','レモン','301103',80,'個',8,'枚');
+insert into food values('201149','オレンジ','301103',90,'個',8,'切');
+insert into food values('201150','ポーションバター','301106',1980,'箱',100,'個');
+			</pre>
+
+			<!--
+			<div class="box26">
+				<span class="box-title">POINT</span>
+			</div>-->
+		</div>
+		<div class="right-box">
+			<iframe width="100%" height="100%" src="https://postgresql.arupaka.net/container/"></iframe>
+		</div>
+	</div>
+	<footer>
+	</footer>
+</body>
+
+</html>

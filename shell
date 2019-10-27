@@ -1,0 +1,42 @@
+sudo gotty -w -a 127.0.0.1 \
+docker run -e=TZ=Asia/Tokyo -it --network none --rm \
+-v /var/gotty/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d \
+postgres /bin/bash -c " \
+export POSTGRES_USER=postgres && export POSTGRES_PASSWORD=postgresql && export POSTGRES_DB=ossdb && docker-entrypoint.sh postgres > /dev/null 2>&1 & \
+(sleep 3600 ; echo 1時間経過したのでページを更新してちょ ; pkill psql ) & \
+echo "準備中。ちょっと待ってね。" &&
+sleep 2 &&
+export LANG=ja_JP.UTF-8 && \
+sed -i s'/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/' /etc/locale.gen && \
+locale-gen > /dev/null 2>&1 && \
+sed -i s'/en_US/ja_JP/' /var/lib/postgresql/data/postgresql.conf && \
+psql -P pager=off -U postgres ossdb"
+
+sudo gotty -w -a 127.0.0.1 \
+docker run -e=TZ=Asia/Tokyo -it --network none --rm \
+-v /Users/kohei/Desktop/temp/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d \
+postgres /bin/bash -c " \
+export POSTGRES_USER=postgres && export POSTGRES_PASSWORD=postgresql && export POSTGRES_DB=ossdb && docker-entrypoint.sh postgres > /dev/null 2>&1 & \
+(sleep 3600 ; echo 1時間経過したのでページを更新してちょ ; pkill psql ) & \
+echo "準備中。ちょっと待ってね。" &&
+sleep 2 &&
+export LANG=ja_JP.UTF-8 && \
+sed -i s'/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/' /etc/locale.gen && \
+locale-gen > /dev/null 2>&1 && \
+sed -i s'/en_US/ja_JP/' /var/lib/postgresql/data/postgresql.conf && \
+psql -P pager=off -U postgres ossdb"
+
+echo '\pset pager off' > ~/.psqlrc && \
+
+-v ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d\
+
+
+
+
+--env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgresql -env=POSTGRES_DB=ossdb --env=TZ=Asia/Tokyo
+
+sed -i s"/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/" /etc/locale.gen \
+locale-gen /dev/null 2>&1 \
+sed -i s"/en_US/ja_JP/" /var/lib/postgresql/data/postgresql.conf \
+export LANG=ja_JP.UTF-8 \
+psql -U postgres ossdb \

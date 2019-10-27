@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+html, body
+{
+	font-family: 'Noto Sans JP', sans-serif;
+	height: 100%;
+	width: 100%;
+}
+header
+{
+	position: fixed;
+	height: 100px;
+	width: 100%;
+	background-color: #00dfff;
+	z-index: 1;
+}
+header p
+{
+	line-height: 100px;
+	margin-left: 50px;
+	font-size: 2em;
+	font-weight: 100;
+
+}
+.container
+{
+	position: fixed;
+	display: flex;
+	height: calc(100% - 100px);
+	width: 100%;
+	padding-top: 100px;
+}
+.right-box
+{
+	width: 70%;
+}
+.left-box
+{
+	margin: 20px;
+	width: 30%;
+	overflow-y: scroll;
+}
+body > div > div.left-box > h1 {
+	padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+	color: #494949;/*文字色*/
+	background: #f4f4f4;/*背景色*/
+	border-left: solid 5px #7db4e6;/*左線*/
+	border-bottom: solid 3px #d7d7d7;/*下線*/
+	font-size: 1.5em;
+}
+body > div > div.left-box > p {
+	margin: 30px 0px;
+}
+body > div > div.left-box > b:nth-child(9) {
+	line-height: 10px;
+}
+.box26 {
+    position: relative;
+    margin: 2em 0;
+    padding: 0.5em 1em;
+    border: solid 3px #95ccff;
+    border-radius: 8px;
+}
+.box26 .box-title {
+    position: absolute;
+    display: inline-block;
+    top: -13px;
+    left: 10px;
+    padding: 0 9px;
+    line-height: 1;
+    font-size: 19px;
+    background: #FFF;
+    color: #95ccff;
+    font-weight: bold;
+}
+.box26 p {
+    margin: 0;
+    padding: 0;
+}
